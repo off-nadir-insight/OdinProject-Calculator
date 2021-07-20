@@ -12,19 +12,34 @@ Link to (TheOdinProject Project Page)[https://www.theodinproject.com/paths/found
   [x] multiply
   [x] divide
 [x] function named "operate" that takes an operator & two numbers and calls one of the mathematical functions (from prev step)
-[] create HTML calculator layout
+[x] create HTML calculator layout
   without "wiring up" the JS:
-  [] button for each digit
-  [] button for each of the functions
-  [] equals button
-  [] display (with dummy numbers)
-  [] clear button
-[] function to populate the display as numbers are pushed
+  [x] button for each digit
+  [x] button for each of the functions
+  [x] equals button
+  [x] display (with dummy numbers)
+  [x] clear button
+[x] function to populate the display as numbers are pushed
 [] "hook up" functions to buttons
-  [] store the first number
-  [] store the operation
+  [x] store the first number
+  [x] store the operation
   [] equals button triggers the operate() function
   [] update display with the solution
+  <!-- RPN: -->
+  enter "number" A
+  click "=" to store number A
+  display A in second display
+  clear display
+  enter "number" B
+  clicking operator triggers function
+  <!-- algebraic -->
+  enter "number" A
+  clicking operator stores number A & operator
+  clear display
+  enter "number" B
+  click "=" to trigger function
+
+  
   <!-- *** this section will be a challenge *** -->
 
 <!-- Gotchas: watch out for and fix these bugs if they show up in your code:
