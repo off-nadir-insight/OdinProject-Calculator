@@ -60,14 +60,23 @@ function handleBtnClick(event) {
   }
 
   if (btnValue === "=") {
-    numB = Number(displayValue);
-    if (Object.keys(operatorFunctions).includes(operator)){
-      displayValue = operatorFunctions[operator](numA, numB)
+    if (operator) {
+      numB = Number(displayValue);
+      if (operator === "div" && numB === 0) {
+        secondaryDisplayValue = ":(";
+        displayValue = "inf err";
+        updateDisplay();
+        return;
+      }
+      secondaryDisplayValue += ` ${numB}`;
+      if (Object.keys(operatorFunctions).includes(operator)){
+        displayValue = operatorFunctions[operator](numA, numB);
+      }
+      numA = 0;
+      numB = 0;
+      operator = null;
+      updateDisplay();
     }
-    numA = 0;
-    numB = 0;
-    operator = null;
-    updateDisplay();
   }
 
   if (btnValue === "add" || btnValue === "sub" || btnValue === "mul" || btnValue === "div") {
