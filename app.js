@@ -19,6 +19,9 @@ const operatorFunctions = {
   },
   div: function (num1, num2) {
     return (num1 / num2);
+  },
+  mod: function (num1, num2) {
+    return (num1 % num2);
   }
 }
 
@@ -86,7 +89,7 @@ function handleBtnClick(event) {
     }
   }
 
-  if (btnValue === "add" || btnValue === "sub" || btnValue === "mul" || btnValue === "div") {
+  if (btnValue === "add" || btnValue === "sub" || btnValue === "mul" || btnValue === "div" || btnValue === "mod") {
     if (numA) {
       numB = Number(displayValue);
       numA = operatorFunctions[operator](numA, numB);
