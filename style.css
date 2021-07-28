@@ -96,10 +96,11 @@ p.label {
 
 .disabled-btn {
   color: #444;
+  cursor: inherit;
 }
 
-.operations-btn {
-  color: hsl(120, 100%, 50%);
+.button-clicked.operations-btn {
+  color: #0f0;
 }
 
 .disable-select {
