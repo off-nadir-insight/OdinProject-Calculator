@@ -2,7 +2,7 @@
 TheOdinProject -- Foundations -- Project:Calculator
 
 ## TheOdinProject lesson
-Link to (TheOdinProject Project Page)[https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/calculator]
+Link to [TheOdinProject Project Page](https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/calculator)
 
 ## Tasks
 [x] basic mathematical operations
