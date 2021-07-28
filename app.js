@@ -66,7 +66,7 @@ function handleBtnClick(event) {
     if (displayValue.length > 1) {
       displayValue = displayValue.slice(0, -1);
     } else {
-      displayValue = 0;
+      displayValue = "0";
     }
   }
 
@@ -106,6 +106,10 @@ function handleBtnClick(event) {
       secondaryDisplayValue = `${numA} ${event.target.textContent}`;
       displayValue = "0";
     }
+  }
+
+  if (btnValue === "." && !displayValue.includes(".")) {
+    displayValue += ".";
   }
 
   if (displayValue === "0" && btnValue <= 9 && btnValue >= 0) {
