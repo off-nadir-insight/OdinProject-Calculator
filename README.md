@@ -20,24 +20,12 @@ Link to (TheOdinProject Project Page)[https://www.theodinproject.com/paths/found
   [x] display (with dummy numbers)
   [x] clear button
 [x] function to populate the display as numbers are pushed
-[] "hook up" functions to buttons
+[x] "hook up" functions to buttons
   [x] store the first number
   [x] store the operation
-  [] equals button triggers the operate() function
-  [] update display with the solution
-  <!-- RPN: -->
-  enter "number" A
-  click "=" to store number A
-  display A in second display
-  clear display
-  enter "number" B
-  clicking operator triggers function
-  <!-- algebraic -->
-  enter "number" A
-  clicking operator stores number A & operator
-  clear display
-  enter "number" B
-  click "=" to trigger function
+  [x] equals button triggers the operate() function
+  [x] update display with the solution
+  [x] add functionality to chain operations
 
   
   <!-- *** this section will be a challenge *** -->

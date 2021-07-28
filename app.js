@@ -18,7 +18,7 @@ const operatorFunctions = {
     return num1 * num2;
   },
   div: function (num1, num2) {
-    return (num1 / num2).toFixed(7);
+    return (num1 / num2);
   }
 }
 
@@ -71,6 +71,9 @@ function handleBtnClick(event) {
       secondaryDisplayValue += ` ${numB}`;
       if (Object.keys(operatorFunctions).includes(operator)){
         displayValue = operatorFunctions[operator](numA, numB);
+        if (displayValue.toString().length > 7) {
+          displayValue = displayValue.toExponential(4);
+        }
       }
       numA = 0;
       numB = 0;
@@ -80,10 +83,18 @@ function handleBtnClick(event) {
   }
 
   if (btnValue === "add" || btnValue === "sub" || btnValue === "mul" || btnValue === "div") {
-    numA = Number(displayValue);
-    operator = btnValue;
-    secondaryDisplayValue = `${numA} ${event.target.textContent}`;
-    displayValue = "0";
+    if (numA) {
+      numB = Number(displayValue);
+      numA = operatorFunctions[operator](numA, numB);
+      secondaryDisplayValue = `${numA} ${event.target.textContent}`;
+      operator = btnValue;
+      displayValue = "0";
+    } else {
+      numA = Number(displayValue);
+      operator = btnValue;
+      secondaryDisplayValue = `${numA} ${event.target.textContent}`;
+      displayValue = "0";
+    }
   }
 
   if (displayValue === "0" && btnValue <= 9 && btnValue >= 0) {
