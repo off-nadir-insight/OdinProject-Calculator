@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Calculator</title>
   <link rel="stylesheet" href="style.css">
   <script src="./app.js" defer></script>
 </head>
 <body>
   <main>
+    <p class="label disable-select">Calculator</p>
     <div class="display-container">
+      <div id="secondary-display">0</div>
       <div class="display">
-        <p id="display--numbers">1234567890</p>
+        <p id="display--numbers">0</p>
       </div>
     </div>
     <div class="keypad disable-select">
@@ -44,7 +46,7 @@
         <div class="button col-1" data-btn-value=".">.</div>
         <div class="button col-2" data-btn-value="0">0</div>
         <div class="button col-3" data-btn-value="(">()</div>
-        <div class="button col-4" data-btn-value="=">=</div>
+        <div class="button col-4 txt" data-btn-value="=">=</div>
       </div>
     </div>
   </main>
