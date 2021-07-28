@@ -93,6 +93,10 @@ p.label {
   box-shadow: unset;
 }
 
+.disabled-btn {
+  color: #444;
+}
+
 .disable-select {
   user-select: none; /* supported by Chrome and Opera */
  -webkit-user-select: none; /* Safari */

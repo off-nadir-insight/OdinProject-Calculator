@@ -59,6 +59,10 @@ function handleBtnClick(event) {
     clearScreen()
   }
 
+  if (btnValue === "<") {
+    displayValue = displayValue.slice(0, -1);
+  }
+
   if (btnValue === "=") {
     if (operator) {
       numB = Number(displayValue);
