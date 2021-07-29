@@ -33,8 +33,7 @@ Link to [TheOdinProject Project Page](https://www.theodinproject.com/paths/found
 
 - [x] EXTRA CREDIT: Users can get floating point numbers if they do the math required to get one, but they can’t type them in yet. Add a . button and let users input decimals! Make sure you don’t let them type more than one though: 12.3.56.5. It is hard to do math on these numbers. (disable the decimal button if there’s already one in the display)
 
-<!-- *** this section will be a challenge *** -->
-
-<!-- additional goals -->
-
-<!-- EXTRA CREDIT: Add keyboard support! -->
+- [ ] EXTRA CREDIT: Add keyboard support!
+  - [x] register keypress
+  - [] align keypresses to button click equivalents
+  - [] confirm alternate keypresses ( = enter)

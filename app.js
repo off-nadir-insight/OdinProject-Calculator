@@ -41,6 +41,75 @@ Array.from(btns).forEach(btn => btn.addEventListener('click', event => {
   handleBtnClick(event)
 }));
 
+// keyboard listeners
+window.addEventListener('keydown', handleKeyDown)
+function handleKeyDown(event) {
+  const {key: btnValue} = event;
+  console.log(btnValue);
+
+  if (btnValue === "C" || btnValue === "c") {
+    clearScreen()
+  }
+
+  if (btnValue === "Backspace") {
+    if (displayValue.length > 1) {
+      displayValue = displayValue.slice(0, -1);
+    } else {
+      displayValue = "0";
+    }
+  }
+
+  if (btnValue === "=" || btnValue === "Enter") {
+    if (operator) {
+      numB = Number(displayValue);
+      if (operator === "div" && numB === 0) {
+        secondaryDisplayValue = ":(";
+        displayValue = "inf err";
+        updateDisplay();
+        return;
+      }
+      secondaryDisplayValue += ` ${numB}`;
+      if (Object.keys(operatorFunctions).includes(operator)){
+        displayValue = operatorFunctions[operator](numA, numB);
+        if (displayValue.toString().length > 7) {
+          displayValue = displayValue.toExponential(4);
+        }
+      }
+      numA = 0;
+      numB = 0;
+      operator = null;
+      updateDisplay();
+    }
+  }
+
+  // requires conversion of +-*/% to keywords
+  if (btnValue === "add" || btnValue === "sub" || btnValue === "mul" || btnValue === "div" || btnValue === "mod") {
+    if (numA) {
+      numB = Number(displayValue);
+      numA = operatorFunctions[operator](numA, numB);
+      secondaryDisplayValue = `${numA} ${event.target.textContent}`;
+      operator = btnValue;
+      displayValue = "0";
+    } else {
+      numA = Number(displayValue);
+      operator = btnValue;
+      secondaryDisplayValue = `${numA} ${event.target.textContent}`;
+      displayValue = "0";
+    }
+  }
+
+  if (btnValue === "." && !displayValue.includes(".")) {
+    displayValue += ".";
+  }
+
+  if (displayValue === "0" && btnValue <= 9 && btnValue >= 0) {
+    displayValue = btnValue;
+  } else if (displayValue.length < 10 && btnValue <= 9 && btnValue >= 0) {
+    displayValue += btnValue;
+  }
+  updateDisplay()
+} 
+
 function updateDisplay() {
   display.textContent = displayValue;
   secondaryDisplay.textContent = secondaryDisplayValue;
@@ -58,7 +127,7 @@ function clearScreen() {
 function handleBtnClick(event) {
   const {btnValue} = event.target.dataset
 
-  if (btnValue === "C") {
+  if (btnValue === "C" || btnValue === "c") {
     clearScreen()
   }
 
@@ -119,3 +188,4 @@ function handleBtnClick(event) {
   }
   updateDisplay()
 }
+
