@@ -41,5 +41,9 @@ Link to [TheOdinProject Project Page](https://www.theodinproject.com/paths/found
 
 ### Polish
 - [ ] refactor code
-  - [ ] remove keyboard / button functionality duplication
-  - [ ] add ability to toggle negative numbers
+  - [x] remove keyboard / button functionality duplication
+  - [x] divide by zero check being bypassed when chaining operatons
+  - [ ] move number formatting (e.g. too long to display) to updateDisplay function
+- [x] add ability to toggle negative numbers
+- [ ] bug: keyboard inputs disrupt CSS animations on subsequent click listeners. Reloading the page resets the issue
+- [x] bug: clicking the sign toggle button while the display shows "0" locks up the input until cleared
