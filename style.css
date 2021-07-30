@@ -94,6 +94,10 @@ p.label {
   box-shadow: unset;
 }
 
+.txt {
+  font-size: .875rem;
+}
+
 .disabled-btn {
   color: #444;
   cursor: inherit;

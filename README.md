@@ -35,5 +35,6 @@ Link to [TheOdinProject Project Page](https://www.theodinproject.com/paths/found
 
 - [ ] EXTRA CREDIT: Add keyboard support!
   - [x] register keypress
-  - [] align keypresses to button click equivalents
-  - [] confirm alternate keypresses ( = enter)
+  - [x] align keypresses to button click equivalents
+  - [x] confirm alternate keypresses ( = enter )
+  - [ ] keypresses trigger button styling toggling (and untoggle)

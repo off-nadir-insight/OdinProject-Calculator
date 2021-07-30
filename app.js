@@ -8,92 +8,107 @@ const display = document.getElementById("display--numbers");
 const secondaryDisplay = document.getElementById("secondary-display");
 
 const operatorFunctions = {
-  add: function(num1, num2) {
+  "+": function(num1, num2) {
     return num1 + num2;
   },
-  sub: function(num1, num2) {
+  "-": function(num1, num2) {
     return num1 - num2;
   },
-  mul: function (num1, num2) {
+  "*": function (num1, num2) {
     return num1 * num2;
   },
-  div: function (num1, num2) {
+  "/": function (num1, num2) {
     return (num1 / num2);
   },
-  mod: function (num1, num2) {
+  "%": function (num1, num2) {
     return (num1 % num2);
   }
 }
 
+// attempt to cut down on errors from key presses that aren't of interest to app
+const validKeys = ["1","2","3","4","5","6","7","8","9","0","+","-","*","/","%","=","Backspace","Escape","c","C","."]
+
 // handles css styling for clicking buttons
 Array.from(btns).forEach(btn => btn.addEventListener('mousedown', event => {
-  event.target.classList.add('button-clicked')
+  event.target.classList.add('button-clicked');
 }));
 Array.from(btns).forEach(btn => btn.addEventListener('mouseup', event => {
-  event.target.classList.remove('button-clicked')
+  event.target.classList.remove('button-clicked');
 }));
 Array.from(btns).forEach(btn => btn.addEventListener('mouseleave', event => {
-  event.target.classList.remove('button-clicked')
+  event.target.classList.remove('button-clicked');
 }));
 
 // capture button clicks
 Array.from(btns).forEach(btn => btn.addEventListener('click', event => {
-  handleBtnClick(event)
+  handleBtnClick(event);
 }));
 
 // keyboard listeners
 window.addEventListener('keydown', handleKeyDown)
 function handleKeyDown(event) {
-  const {key: btnValue} = event;
-  console.log(btnValue);
-
-  if (btnValue === "C" || btnValue === "c") {
-    clearScreen()
-  }
-
-  if (btnValue === "Backspace") {
-    if (displayValue.length > 1) {
-      displayValue = displayValue.slice(0, -1);
-    } else {
-      displayValue = "0";
+  let {key: btnValue} = event;
+  if (validKeys.includes(btnValue)) {
+    if (["Escape", "c", "C"].includes(btnValue)) {
+      btnValue = "c";
     }
-  }
+    if (["Backspace", "<"].includes(btnValue)) {
+      btnValue = "<";
+    }
+    console.log(btnValue)
+    const targetBtn = document.querySelector(`div[data-btn-value="${btnValue}"]`);
+    targetBtn.classList.add('button-clicked');
+    setInterval(()=>{targetBtn.classList.remove('button-clicked');}, 100)
+    console.log(targetBtn);
 
-  if (btnValue === "=" || btnValue === "Enter") {
-    if (operator) {
-      numB = Number(displayValue);
-      if (operator === "div" && numB === 0) {
-        secondaryDisplayValue = ":(";
-        displayValue = "inf err";
-        updateDisplay();
-        return;
+    if (btnValue === "C" || btnValue === "c" || btnValue === "Escape") {
+      clearScreen()
+    }
+
+    if (btnValue === "Backspace") {
+      if (displayValue.length > 1) {
+        displayValue = displayValue.slice(0, -1);
+      } else {
+        displayValue = "0";
       }
-      secondaryDisplayValue += ` ${numB}`;
-      if (Object.keys(operatorFunctions).includes(operator)){
-        displayValue = operatorFunctions[operator](numA, numB);
-        if (displayValue.toString().length > 7) {
-          displayValue = displayValue.toExponential(4);
+    }
+
+    if (btnValue === "=" || btnValue === "Enter") {
+      if (operator) {
+        numB = Number(displayValue);
+        if (operator === "/" && numB === 0) {
+          secondaryDisplayValue = ":(";
+          displayValue = "inf err";
+          updateDisplay();
+          return;
         }
+        secondaryDisplayValue += ` ${numB}`;
+        if (Object.keys(operatorFunctions).includes(operator)){
+          displayValue = operatorFunctions[operator](numA, numB);
+          if (displayValue.toString().length > 7) {
+            displayValue = displayValue.toExponential(4);
+          }
+        }
+        numA = 0;
+        numB = 0;
+        operator = null;
+        updateDisplay();
       }
-      numA = 0;
-      numB = 0;
-      operator = null;
-      updateDisplay();
     }
   }
 
   // requires conversion of +-*/% to keywords
-  if (btnValue === "add" || btnValue === "sub" || btnValue === "mul" || btnValue === "div" || btnValue === "mod") {
+  if (btnValue === "+" || btnValue === "-" || btnValue === "*" || btnValue === "/" || btnValue === "%") {
     if (numA) {
       numB = Number(displayValue);
       numA = operatorFunctions[operator](numA, numB);
-      secondaryDisplayValue = `${numA} ${event.target.textContent}`;
+      secondaryDisplayValue = `${numA} ${btnValue}`;
       operator = btnValue;
       displayValue = "0";
     } else {
       numA = Number(displayValue);
       operator = btnValue;
-      secondaryDisplayValue = `${numA} ${event.target.textContent}`;
+      secondaryDisplayValue = `${numA} ${btnValue}`;
       displayValue = "0";
     }
   }
@@ -142,7 +157,7 @@ function handleBtnClick(event) {
   if (btnValue === "=") {
     if (operator) {
       numB = Number(displayValue);
-      if (operator === "div" && numB === 0) {
+      if (operator === "/" && numB === 0) {
         secondaryDisplayValue = ":(";
         displayValue = "inf err";
         updateDisplay();
@@ -162,17 +177,17 @@ function handleBtnClick(event) {
     }
   }
 
-  if (btnValue === "add" || btnValue === "sub" || btnValue === "mul" || btnValue === "div" || btnValue === "mod") {
+  if (btnValue === "+" || btnValue === "-" || btnValue === "*" || btnValue === "/" || btnValue === "%") {
     if (numA) {
       numB = Number(displayValue);
       numA = operatorFunctions[operator](numA, numB);
-      secondaryDisplayValue = `${numA} ${event.target.textContent}`;
+      secondaryDisplayValue = `${numA} ${btnValue}`;
       operator = btnValue;
       displayValue = "0";
     } else {
       numA = Number(displayValue);
       operator = btnValue;
-      secondaryDisplayValue = `${numA} ${event.target.textContent}`;
+      secondaryDisplayValue = `${numA} ${btnValue}`;
       displayValue = "0";
     }
   }
