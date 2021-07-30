@@ -26,7 +26,11 @@ const operatorFunctions = {
 }
 
 // attempt to cut down on errors from key presses that aren't of interest to app
-const validKeys = ["1","2","3","4","5","6","7","8","9","0","+","-","*","/","%","=","Backspace","Escape","c","C","."]
+const validKeys = ["1","2","3","4","5","6","7","8","9","0","+","-","*","/","%","=","Backspace","Escape","c","C",".","<", "Enter"]
+
+function isValidKey(btnValue) {
+  return validKeys.includes(btnValue)
+}
 
 // handles css styling for clicking buttons
 Array.from(btns).forEach(btn => btn.addEventListener('mousedown', event => {
@@ -44,28 +48,44 @@ Array.from(btns).forEach(btn => btn.addEventListener('click', event => {
   handleBtnClick(event);
 }));
 
-// keyboard listeners
+function printEvent(e) {
+  if (e.type === "click") {
+    console.log('click event!')
+  }
+  if (e.type === "keydown") {
+    console.log("keydown event!")
+  }
+}
+
+// ---- handle keyboard clicks ----
 window.addEventListener('keydown', handleKeyDown)
 function handleKeyDown(event) {
+  printEvent(event);
   let {key: btnValue} = event;
   if (validKeys.includes(btnValue)) {
+    
+    // account for various keyboard keys targeting same button
     if (["Escape", "c", "C"].includes(btnValue)) {
       btnValue = "c";
     }
     if (["Backspace", "<"].includes(btnValue)) {
       btnValue = "<";
     }
-    console.log(btnValue)
+    if (["Enter"].includes(btnValue)) {
+      btnValue = "=";
+    }
+
     const targetBtn = document.querySelector(`div[data-btn-value="${btnValue}"]`);
     targetBtn.classList.add('button-clicked');
-    setInterval(()=>{targetBtn.classList.remove('button-clicked');}, 100)
-    console.log(targetBtn);
+    setInterval(()=>{
+      targetBtn.classList.remove('button-clicked');
+    }, 100)
 
     if (btnValue === "C" || btnValue === "c" || btnValue === "Escape") {
       clearScreen()
     }
 
-    if (btnValue === "Backspace") {
+    if (btnValue === "<") {
       if (displayValue.length > 1) {
         displayValue = displayValue.slice(0, -1);
       } else {
@@ -97,7 +117,6 @@ function handleKeyDown(event) {
     }
   }
 
-  // requires conversion of +-*/% to keywords
   if (btnValue === "+" || btnValue === "-" || btnValue === "*" || btnValue === "/" || btnValue === "%") {
     if (numA) {
       numB = Number(displayValue);
@@ -139,7 +158,12 @@ function clearScreen() {
   updateDisplay();
 }
 
+
+// ---- handle screen clicks ----
+
 function handleBtnClick(event) {
+  printEvent(event);
+
   const {btnValue} = event.target.dataset
 
   if (btnValue === "C" || btnValue === "c") {
