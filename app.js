@@ -153,7 +153,6 @@ function handleInput(event) {
       if (numA) {
         numB = Number(displayValue);
         numA = operatorFunctions[operator](numA, numB);
-        // insert checkLength function for numA before converting to text
         numA = formatDisplay(numA);
         secondaryDisplayValue = `${numA} ${btnValue}`;
         operator = btnValue;
