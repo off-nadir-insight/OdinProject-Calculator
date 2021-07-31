@@ -1,14 +1,14 @@
 const btns = document.getElementsByClassName('button');
+const display = document.getElementById("display--numbers");
+const secondaryDisplay = document.getElementById("secondary-display");
+const inputDisplayMaxLength = 9;
+const outputDisplayMaxLength = 5;
 let numA = 0;
 let numB = 0;
 let operator;
 let displayValue = "0";
 let secondaryDisplayValue = "0";
 let btnValue;
-const display = document.getElementById("display--numbers");
-const secondaryDisplay = document.getElementById("secondary-display");
-const inputDisplayMaxLength = 9;
-const outputDisplayMaxLength = 5;
 
 const operatorFunctions = {
   "+": function(num1, num2) {
@@ -49,7 +49,7 @@ function animateKeyboardInput(event) {
   if (event.type === "keydown") {
     const targetBtn = document.querySelector(`div[data-btn-value="${btnValue}"]`);
     targetBtn.classList.add('button-clicked');
-    setInterval(()=>{
+    window.setTimeout(()=>{
       targetBtn.classList.remove('button-clicked');
     }, 200)
   }
@@ -78,7 +78,7 @@ function assignBtnValue(e) {
   if (e.type === "keydown") {
     btnValue = e.key;
   }
-  return btnValue
+  return btnValue;
 }
 
 function formatDisplay(num) {
@@ -140,15 +140,12 @@ function handleInput(event) {
         secondaryDisplayValue += ` ${numB}`;
         if (Object.keys(operatorFunctions).includes(operator)){
           displayValue = operatorFunctions[operator](numA, numB);
-          displayValue = formatDisplay(displayValue)
-          // if (displayValue.toString().length > 6) {
-          //   displayValue = displayValue.toExponential(4);
-          // }
+          displayValue = formatDisplay(displayValue);
         }
         numA = 0;
         numB = 0;
         operator = null;
-        updateDisplay();
+        // updateDisplay();
       }
     }
 
@@ -156,6 +153,8 @@ function handleInput(event) {
       if (numA) {
         numB = Number(displayValue);
         numA = operatorFunctions[operator](numA, numB);
+        // insert checkLength function for numA before converting to text
+        numA = formatDisplay(numA);
         secondaryDisplayValue = `${numA} ${btnValue}`;
         operator = btnValue;
         displayValue = "0";
@@ -182,6 +181,6 @@ function handleInput(event) {
       displayValue *= -1;
     }
 
-    updateDisplay()
+    updateDisplay();
   }
 } 
